@@ -1,10 +1,10 @@
-**[WP Local Docker V2](https://github.com/10up/wp-local-docker-v2) is now available, please update to that version as v1 is no longer supported. [Documentation available here](https://10up.github.io/wp-local-docker-docs/).**
+# WPV1R: WP Local Docker v1 Revival
 
-# WordPress Docker Development Environment
+> This is an active fork of 10up/wp-local-docker, focused on linux hosts.
+> 
+> WP Local Docker is a Docker based local development environment for WordPress.
 
-> This is a Docker based local development environment for WordPress.
-
-[![Support Level](https://img.shields.io/badge/support-archived-red.svg)](#support-level) [![MIT License](https://img.shields.io/github/license/10up/wp-local-docker.svg)](https://github.com/10up/wp-local-docker/blob/master/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-tentative-blue.svg)](#support-level) [![MIT License](https://img.shields.io/github/license/10up/wp-local-docker.svg)](https://github.com/10up/wp-local-docker/blob/master/LICENSE.md)
 
 ## Table of Contents  
 * [Overview](#overview)
@@ -21,6 +21,23 @@
 	* [Visual Studio Code](#visual-studio-code)
 * [Updating WP Local Docker](#updating-wp-local-docker)
 * [Credits](#credits)
+
+
+## Foreword
+### What is the difference between this project, WP Local Docker v1 and WP Local Docker v2?
+- WPV1R is a docker-based project focused on allowing developers to easily create and modify containers to use when developing
+  sites using WordPress. It is aimed at developers who want the most flexibility and the freedom to modify any piece of the
+  server stack to fit their needs.
+- WP Local Docker v1 is an archived project, no longer maintained by 10up and forked to become WPV1R
+- WP Local Docker v2 is an npm tool in active development focused on the ability to run multiple docker installs of WordPress
+  under the main structure. It also features a neat installer and some pretty fancy tricks to ease and automate the creation of
+  new local environments.
+  
+### How do I choose a tool that fits my needs?
+- If you are familiar with the linux terminal and want the most flexibility across the containers in your stack
+  at the expense of configuring everything manually and running one environment at a time, choose WPV1R.
+- If all you want is something that "just works" and you have no desire to tweak your containers unless absolutely necessary
+  you will be more comfortable using WP Local Docker v2, even more so if you are doing your work on Windows or Mac hosts.
 
 ## Overview
 
@@ -208,8 +225,12 @@ It's especially important to `git pull` the latest code before you `docker pull`
 
 ## Support Level
 
-**Archived:** This project is no longer maintained by 10up.  We are no longer responding to Issues or Pull Requests unless they relate to security concerns.  We encourage interested developers to fork this project and make it their own!
+**Tentative:** 10up has stopped working on this version of WP Local Docker to focus their efforts on WP Local Docker V2. 
+This is my own spin to it, as it gets used for my development tasks. It does run on Windows and Macs, but it will not be 
+actively supported on platforms other than Linux.
 
 ## Credits
 
-This project is our own flavor of an environment created by John Bloch.
+    This project is my own version
+        - of 10up's own flavor
+             - of an environment created by John Bloch.
