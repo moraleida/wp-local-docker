@@ -3,14 +3,18 @@ services:
   mysql:
     image: mysql:5
     volumes:
+      - "./config/mysql/my.cnf:/etc/mysql/mysql.cnf"
       - "./data/db:/var/lib/mysql:delegated"
     ports:
       - "3306:3306"
+    command: '--lower_case_table_names=1'
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: password
+    mem_limit: 2048M
+    mem_reservation: 2048M
   mailcatcher:
      image: schickling/mailcatcher
      ports:
@@ -21,7 +25,7 @@ services:
   memcached:
     image: memcached:latest
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.5
+    image: elasticsearch:7.10.1
     environment:
       ES_JAVA_OPTS: "-Xms750m -Xmx750m"
     ports:
@@ -30,8 +34,25 @@ services:
       - "./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:cached"
       - "./config/elasticsearch/plugins:/usr/share/elasticsearch/plugins:cached"
       - "./data/elasticsearch:/usr/share/elasticsearch/data:delegated"
+  kibana:
+    image: 'docker.elastic.co/kibana/kibana:7.10.1'
+    ports:
+      - '5601:5601'
+    environment:
+      ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+    depends_on:
+      - elasticsearch
   phpfpm:
-    image: 10up/phpfpm
+    env_file:
+      - ./config/php-fpm/php-fpm.env
+    build:
+      dockerfile: ./config/php-fpm/Dockerfile
+      context: .
+      args:
+        CALLING_USER: ${CALLING_USER}
+        CALLING_UID: ${CALLING_UID}
+    cap_add:
+      - SYS_PTRACE
     depends_on:
       - mysql
       - memcached
@@ -44,6 +65,9 @@ services:
       - "~/.ssh:/root/.ssh:cached"
     extra_hosts:
       - "docker-local.localhost:172.18.0.1"
+    environment:
+      ENABLE_XDEBUG: 'true'
+      PHP_IDE_CONFIG: "serverName=${SERVER_NAME} 1000"
   nginx:
     depends_on:
       - phpfpm
