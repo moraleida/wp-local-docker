@@ -6,6 +6,26 @@
 
 [![Support Level](https://img.shields.io/badge/support-tentative-blue.svg)](#support-level) [![MIT License](https://img.shields.io/github/license/10up/wp-local-docker.svg)](https://github.com/10up/wp-local-docker/blob/master/LICENSE.md)
 
+## Foreword
+### What is the difference between this project, WP Local Docker v1 and WP Local Docker v2?
+- WPV1R is a docker-based project focused on allowing developers to easily create and modify containers to use when developing
+  sites using WordPress. It is aimed at developers who want the most flexibility and the freedom to modify any piece of the
+  server stack to fit their needs.
+- [WP Local Docker v1](https://github.com/10up/wp-local-docker) is an archived project, no longer maintained by 10up and forked to become WPV1R
+- [WP Local Docker v2](https://github.com/10up/wp-local-docker-v2) is an npm tool in active development, focused on the ability to run multiple
+docker installs of WordPress, using the same main shared structure. It also features a neat installer and some pretty fancy tricks to ease and
+automate the creation of new local environments.
+  
+### How do I choose a tool that fits my needs?
+- If all you want is something that "just works" and you have no desire to tweak your containers unless absolutely necessary
+  you will be more comfortable using [WP Local Docker v2](https://github.com/10up/wp-local-docker-v2). Even more so if you are doing your work on Windows or Mac hosts.
+
+- If you are familiar with the command-line and want the most flexibility to set and configure all the containers in your stack
+  at the expense of running a single environment at a time, choose WPV1R.
+  
+### Does it work on Mac or Windows?
+I don't know :) It is very likely to work, because the foundation built originally was pretty great, but this project is not officially supported on platforms other than Linux.
+
 ## Table of Contents  
 * [Overview](#overview)
 * [Requirements](#requirements)
@@ -22,30 +42,11 @@
 * [Updating WP Local Docker](#updating-wp-local-docker)
 * [Credits](#credits)
 
-
-## Foreword
-### What is the difference between this project, WP Local Docker v1 and WP Local Docker v2?
-- WPV1R is a docker-based project focused on allowing developers to easily create and modify containers to use when developing
-  sites using WordPress. It is aimed at developers who want the most flexibility and the freedom to modify any piece of the
-  server stack to fit their needs.
-- WP Local Docker v1 is an archived project, no longer maintained by 10up and forked to become WPV1R
-- WP Local Docker v2 is an npm tool in active development focused on the ability to run multiple docker installs of WordPress
-  under the main structure. It also features a neat installer and some pretty fancy tricks to ease and automate the creation of
-  new local environments.
-  
-### How do I choose a tool that fits my needs?
-- If you are familiar with the linux terminal and want the most flexibility across the containers in your stack
-  at the expense of configuring everything manually and running one environment at a time, choose WPV1R.
-- If all you want is something that "just works" and you have no desire to tweak your containers unless absolutely necessary
-  you will be more comfortable using WP Local Docker v2, even more so if you are doing your work on Windows or Mac hosts.
-
 ## Overview
 
-This project is based on [docker-compose](https://docs.docker.com/compose/). By default, the following containers are started: PHP-FPM, MySQL, Elasticsearch, nginx, and Memcached. The `/wordpress` directory is the web root which is mapped to the nginx container.
+This project is based on [docker-compose](https://docs.docker.com/compose/). By default, the following containers are started: PHP-FPM, MySQL, Elasticsearch, Kibana, nginx, and Memcached. The `/wordpress` directory is the web root which is mapped to the nginx container.
 
 You can directly edit PHP, nginx, and Elasticsearch configuration files from within the repo as they are mapped to the correct locations in containers.
-
-A [custom phpfpm image](https://github.com/10up/phpfpm-image) is used for this environment that adds a few extra things to the PHP-FPM image.
 
 The `/config/elasticsearch/plugins` folder is mapped to the plugins folder in the Elasticsearch container. You can drop Elasticsearch plugins in this folder to have them installed within the container.
 
