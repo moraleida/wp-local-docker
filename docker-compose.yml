@@ -1,7 +1,7 @@
 version: '3'
 services:
   mysql:
-    image: mysql:5
+    image: mysql:5.6
     volumes:
       - "./config/mysql/my.cnf:/etc/mysql/mysql.cnf"
       - "./data/db:/var/lib/mysql:delegated"
@@ -25,7 +25,7 @@ services:
   memcached:
     image: memcached:latest
   elasticsearch:
-    image: elasticsearch:7.10.1
+    image: elasticsearch:7.13.1
     environment:
       ES_JAVA_OPTS: "-Xms750m -Xmx750m"
     ports:
@@ -35,7 +35,7 @@ services:
       - "./config/elasticsearch/plugins:/usr/share/elasticsearch/plugins:cached"
       - "./data/elasticsearch:/usr/share/elasticsearch/data:delegated"
   kibana:
-    image: 'docker.elastic.co/kibana/kibana:7.10.1'
+    image: kibana:7.13.1
     ports:
       - '5601:5601'
     environment:
@@ -59,15 +59,15 @@ services:
       - elasticsearch
     volumes:
       - "./wordpress:/var/www/html:cached"
-      - "./config/php-fpm/php.ini:/usr/local/etc/php/php.ini:cached"
-      - "./config/php-fpm/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:cached"
+      - "./config/php-fpm/php.ini:/etc/php.d/php.ini:cached"
+      - "./config/php-fpm/docker-php-ext-xdebug.ini:/etc/php.d/docker-php-ext-xdebug.ini:cached"
       - "./config/php-fpm/wp-cli.local.yml:/var/www/html/wp-cli.local.yml:cached"
       - "~/.ssh:/root/.ssh:cached"
     extra_hosts:
       - "docker-local.localhost:172.18.0.1"
     environment:
       ENABLE_XDEBUG: 'true'
-      PHP_IDE_CONFIG: "serverName=${SERVER_NAME} 1000"
+      PHP_IDE_CONFIG: "serverName=${SERVER_NAME}"
   nginx:
     depends_on:
       - phpfpm
