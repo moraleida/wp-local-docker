@@ -7,7 +7,7 @@ LABEL "com.10up.wp-local-docker"="user-image"
 
 USER root
 
-RUN useradd ${CALLING_USER} -u ${CALLING_UID}
+RUN useradd --system "${CALLING_USER}" --uid "${CALLING_UID}"
 RUN mkdir -p /run/php-fpm
 RUN chown ${CALLING_USER} /run/php-fpm
 RUN chown ${CALLING_USER} /var/log/php-fpm
